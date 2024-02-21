@@ -141,10 +141,21 @@ ORDER BY `event_number`;
 
 ### Selezionare tutti gli utenti che si sono prenotati a più di 70 eventi (74)
 ```sql
-SELECT COUNT(`users`.`id`) AS `user_counter` FROM `users` INNER JOIN `bookings` ON `users`.`id` = `bookings`.`user_id` GROUP BY `users`.`id` HAVING COUNT(`users`.`id`) > 70;
+SELECT COUNT(`users`.`id`) AS `user_counter`
+FROM `users`
+INNER JOIN `bookings`
+ON `users`.`id` = `bookings`.`user_id`
+GROUP BY `users`.`id`
+HAVING COUNT(`users`.`id`) > 70;
 ```
 
 ### Selezionare tutti gli eventi, mostrando il nome dell’evento, il nome della location, il numero di prenotazioni e il totale di biglietti ancora disponibili per l’evento (1040)
 ```sql
-SELECT `events`.`name`, `locations`.`name`, COUNT(`bookings`.`id`) AS `bookings_counter`, (`events`.`total_tickets` - COUNT(`bookings`.`id`)) AS `remaning_tickets` FROM `events` INNER JOIN `bookings` ON `events`.`id` = `bookings`.`event_id` INNER JOIN `locations` ON `events`.`location_id` = `locations`.`id` GROUP BY `events`.`id`;
+SELECT `events`.`name`, `locations`.`name`, COUNT(`bookings`.`id`) AS `bookings_counter`, (`events`.`total_tickets` - COUNT(`bookings`.`id`)) AS `remaning_tickets`
+FROM `events`
+INNER JOIN `bookings`
+ON `events`.`id` = `bookings`.`event_id`
+INNER JOIN `locations`
+ON `events`.`location_id` = `locations`.`id`
+GROUP BY `events`.`id`;
 ```
